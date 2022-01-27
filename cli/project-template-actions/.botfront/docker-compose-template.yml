@@ -1,6 +1,6 @@
 ########################################################################
 # This file is used as a template for the docker-compose.yaml file     #
-# you will find at the root of your project when running `botfront up` #
+# you will find at the root of your project when running `openbotfront up` #
 ########################################################################
 
 version: "3.0"
@@ -10,8 +10,8 @@ services:
       context: ./actions
       args:
         RASA_SDK_IMAGE: ${IMAGES_CURRENT_ACTIONS}
-    container_name: botfront-actions
-    networks: ["botfront-network"]
+    container_name: openbotfront-actions
+    networks: ["openbotfront-network"]
     restart: always
     ports:
       - "5055:5055"
@@ -26,4 +26,4 @@ services:
       - .env
 
 networks:
-  botfront-network: {}
+  openbotfront-network: {}

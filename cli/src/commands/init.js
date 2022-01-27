@@ -111,7 +111,7 @@ export async function createProject(targetDirectory, images, ci = false, enableM
     let projectCreatedInAnotherDir = false;
     if (targetDirectory) {
         projectAbsPath = path.join(projectAbsPath, targetDirectory);
-        const message = `${chalk.red('ERROR:')} the directory ${chalk.blueBright.bold(targetDirectory)} already exists. Run ${chalk.cyan.bold('botfront init')} again and choose another directory.`
+        const message = `${chalk.red('ERROR:')} the directory ${chalk.blueBright.bold(targetDirectory)} already exists. Run ${chalk.cyan.bold('openbotfront init')} again and choose another directory.`
         if (fs.existsSync(projectAbsPath)) return console.log(boxen(message))
         fs.mkdirSync(projectAbsPath);
         shell.cd(projectAbsPath);
@@ -120,7 +120,7 @@ export async function createProject(targetDirectory, images, ci = false, enableM
 
     try {
         await copyTemplateFilesToProjectDir(projectAbsPath, images, false, enableMongoAuth, cloud);
-        let command = 'botfront up';
+        let command = 'openbotfront up';
         if (projectCreatedInAnotherDir) {
             command = `cd ${targetDirectory} && ${command}`;
         }

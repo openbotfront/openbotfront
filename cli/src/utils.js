@@ -78,7 +78,7 @@ export function stopSpinner(spinner) {
 
 export async function getLatestVersion() {
     try {
-        const response = await axios.get('https://registry.npmjs.org/botfront');
+        const response = await axios.get('https://registry.npmjs.org/openbotfront');
         if (response.status === 200) {
             return response.data['dist-tags'].latest;
         }
@@ -144,10 +144,10 @@ export async function displayNpmUpdateMessage() {
         const latestVersion = await getLatestVersion();
         console.log(
             boxen(
-                `A new version of Botfront is available: ${chalk.blueBright(
+                `A new version of Openbotfront is available: ${chalk.blueBright(
                     currentVersion,
                 )} -> ${chalk.green(latestVersion)}\nRun ${chalk.cyan.bold(
-                    'npm install -g botfront',
+                    'npm install -g openbotfront',
                 )} to update.`,
                 { padding: 1, margin: 1 },
             ),
@@ -166,18 +166,18 @@ export async function displayProjectUpdateMessage() {
     if (isMinorUpdateWithVersion(projectVersion, botfrontVersion)) {
         console.log(
             boxen(
-                `Project was made with Botfront ${chalk.blueBright(
+                `Project was made with Openbotfront ${chalk.blueBright(
                     projectVersion,
                 )} and the currently installed version is ${chalk.green(
                     botfrontVersion,
-                )}\nRun ${chalk.cyan.bold('botfront update')} to update your project.`,
+                )}\nRun ${chalk.cyan.bold('openbotfront update')} to update your project.`,
             ),
         );
     }
     if (isMajorUpdateWithVersion(projectVersion, botfrontVersion)) {
         console.log(
             boxen(
-                `Project was made with Botfront ${chalk.blueBright(
+                `Project was made with Openbotfront ${chalk.blueBright(
                     projectVersion,
                 )} and the currently installed version is ${chalk.green(
                     botfrontVersion,
@@ -239,7 +239,7 @@ export async function updateEnvFile(projectAbsPath) {
     let envFileContent =
         '########################################################################\n';
     envFileContent +=
-        '# This file is generated when `botfront up` is invoked.                #\n';
+        '# This file is generated when `openbotfront up` is invoked.                #\n';
     envFileContent +=
         '# You can change / add environment variables in .botfront/botfront.yml #\n';
     envFileContent +=
@@ -272,7 +272,7 @@ export function generateDockerCompose(exclude = [], dir, projectId) {
     let initContent =
         '######################################################################################################\n';
     initContent +=
-        '# This file is generated when `botfront up` is invoked.                                              #\n';
+        '# This file is generated when `openbotfront up` is invoked.                                              #\n';
     initContent +=
         '# Changes in .botfront/botfront.yml and .botfront/docker-compose-template.yml will be reflected here #\n';
     initContent +=
@@ -325,12 +325,12 @@ export async function verifySystem() {
     const result = await docker.command('info');
     // const version = result.object.server_version;
     if (!result.object)
-        throw `You must install Docker to use Botfront. Please visit ${chalk.green(
+        throw `You must install Docker to use Openbotfront. Please visit ${chalk.green(
             'https://www.docker.com/products/docker-desktop',
         )}`;
     const results = await promisify(check)({ node: '>= 8.9' });
     if (!results.versions.node.isSatisfied) {
-        throw `You must upgrade your Node.js installation to use Botfront. Please visit ${chalk.green(
+        throw `You must upgrade your Node.js installation to use Openbotfront. Please visit ${chalk.green(
             'https://nodejs.org/en/download/',
         )}`;
     }

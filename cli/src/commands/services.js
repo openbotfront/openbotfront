@@ -41,10 +41,10 @@ import {
 } from '../utils';
 
 async function postUpLaunch(spinner) {
-    const serviceUrl = getServiceUrl('botfront');
+    const serviceUrl = getServiceUrl('openbotfront');
     setSpinnerText(
         spinner,
-        `Opening Botfront (${chalk.green.bold(serviceUrl)}) in your browser...`,
+        `Opening Openbotfront (${chalk.green.bold(serviceUrl)}) in your browser...`,
     );
     await wait(2000);
     await open(serviceUrl);
@@ -69,7 +69,7 @@ export async function doMinorUpdate() {
     if (isMajorUpdateWithVersion(projectVersion, botfrontVersion)) {
         return console.log(
             boxen(
-                `Project was made with Botfront ${chalk.blueBright(
+                `Project was made with Openbotfront ${chalk.blueBright(
                     projectVersion,
                 )} and the currently installed version is ${chalk.green(
                     botfrontVersion,
@@ -101,7 +101,7 @@ export async function dockerComposeUp(
         const noProjectMessage = `${chalk.yellow.bold(
             'No project found.',
         )} ${chalk.cyan.bold(
-            'botfront up',
+            'openbotfront up',
         )} must be executed from your project's directory`;
         return console.log(boxen(noProjectMessage));
     }
@@ -110,7 +110,7 @@ export async function dockerComposeUp(
 
     updateEnvFile(process.cwd());
     await generateDockerCompose(exclude);
-    startSpinner(spinner, 'Starting Botfront...');
+    startSpinner(spinner, 'Starting Openbotfront...');
     const missingImgs = await getMissingImgs();
     await pullDockerImages(missingImgs, spinner, 'Downloading Docker images...');
     await stopRunningProjects(
@@ -122,30 +122,30 @@ export async function dockerComposeUp(
     let command = 'docker-compose up -d';
     const services = getServiceNames(workingDir);
     try {
-        startSpinner(spinner, 'Starting Botfront...');
+        startSpinner(spinner, 'Starting Openbotfront...');
         await shellAsync(command, { silent: !verbose });
         if (ci) process.exit(0); // exit now if ci
-        if (services.includes('botfront') && !exclude.includes('botfront'))
-            await waitForService('botfront');
+        if (services.includes('openbotfront') && !exclude.includes('openbotfront'))
+            await waitForService('openbotfront');
         stopSpinner();
-        console.log(`\n\n        🎉 🎈  Botfront is ${chalk.green.bold('UP')}! 🎉 🎈\n`);
+        console.log(`\n\n        🎉 🎈  Openbotfront is ${chalk.green.bold('UP')}! 🎉 🎈\n`);
         const message =
             'Useful commands:\n\n' +
-            (`\u2022 Run ${chalk.cyan.bold('botfront logs')} to follow logs \n` +
+            (`\u2022 Run ${chalk.cyan.bold('openbotfront logs')} to follow logs \n` +
                 `\u2022 Run ${chalk.cyan.bold(
-                    'botfront watch',
+                    'openbotfront watch',
                 )} to watch ${chalk.yellow.bold('actions')} and ${chalk.yellow.bold(
                     'rasa',
                 )} folders (see ` +
                 `${chalk.cyan.bold('https://botfront.io/docs/rasa/custom-actions')})\n` +
-                `\u2022 Run ${chalk.cyan.bold('botfront down')} to stop Botfront\n` +
+                `\u2022 Run ${chalk.cyan.bold('openbotfront down')} to stop Openbotfront\n` +
                 `\u2022 Run ${chalk.cyan.bold(
-                    'botfront --help',
+                    'openbotfront --help',
                 )} to get help with the CLI\n`);
         console.log(boxen(message) + '\n');
 
-        if (services.includes('botfront') && !exclude.includes('botfront'))
-            await postUpLaunch(spinner); // browser stuff is botfront is not excluded
+        if (services.includes('openbotfront') && !exclude.includes('openbotfront'))
+            await postUpLaunch(spinner); // browser stuff is openbotfront is not excluded
         stopSpinner();
         process.exit(0);
     } catch (e) {
@@ -155,13 +155,13 @@ export async function dockerComposeUp(
                 `${chalk.red.bold(
                     'ERROR:',
                 )} Something went wrong. Check the logs above for more information ☝️, or try inspecting the logs with ${chalk.red.cyan(
-                    'botfront logs',
+                    'openbotfront logs',
                 )}.`,
             );
             console.log(e);
         } else {
             stopSpinner(spinner);
-            failSpinner(spinner, 'Couldn\'t start Botfront. Retrying in verbose mode...', {
+            failSpinner(spinner, 'Couldn\'t start Openbotfront. Retrying in verbose mode...', {
                 exit: false,
             });
             return dockerComposeUp(
@@ -178,13 +178,13 @@ export async function dockerComposeDown({ verbose }, workingDir) {
     if (workingDir) shell.cd(workingDir);
     if (!isProjectDir()) {
         const noProject = chalk.yellow.bold('No project found in this directory.');
-        const killall = chalk.cyan.bold('botfront killall');
+        const killall = chalk.cyan.bold('openbotfront killall');
         const noProjectMessage =
             `${noProject}\n\nIf you don't know where your project is running from,\n` +
-            `${killall} will find and shut down any Botfront\nproject on your machine.`;
+            `${killall} will find and shut down any Openbotfront\nproject on your machine.`;
         return console.log(boxen(noProjectMessage));
     }
-    const spinner = ora('Stopping Botfront...');
+    const spinner = ora('Stopping Openbotfront...');
     spinner.start();
     let command = 'docker-compose down';
     await shellAsync(command, { silent: !verbose });
@@ -256,7 +256,7 @@ export async function dockerComposeCommand(
         const noProjectMessage =
             `${chalk.yellow.bold('No project found in this directory.')}\n` +
             (`${chalk.cyan.bold(
-                `botfront ${name}`,
+                `openbotfront ${name}`,
             )} must be executed in your project's directory.\n` +
                 `${chalk.green.bold(
                     'TIP: ',
@@ -319,12 +319,12 @@ export async function getRunningDockerResources() {
     const docker = new Docker({});
     const command = 'container ps --format={{.Names}}';
     const containersCommand = await docker.command(command);
-    const containers = containersCommand.raw.match(/(botfront-\w+)/g);
+    const containers = containersCommand.raw.match(/(openbotfront-\w+)/g);
     const networkCommand = await docker.command('network ls --format={{.Name}}');
 
-    const networks = networkCommand.raw.match(/([^\s]+_botfront-network)/g);
+    const networks = networkCommand.raw.match(/([^\s]+_openbotfront-network)/g);
     const volumeCommand = await docker.command('volume ls --format={{.Name}}');
-    const volumes = volumeCommand.raw.match(/([^\s]+_botfront-db)/g);
+    const volumes = volumeCommand.raw.match(/([^\s]+_openbotfront-db)/g);
     return { containers, networks, volumes };
 }
 
@@ -355,7 +355,7 @@ export async function stopRunningProjects(
         stopSpinner();
         const failMessage =
             `Could not stop running project. Run ${chalk.cyan.bold(
-                'docker ps | grep -w botfront-',
+                'docker ps | grep -w openbotfront-',
             )} and ` +
             (`then ${chalk.cyan.bold('docker stop <name>')} and ${chalk.cyan.bold(
                 'docker rm <name>',

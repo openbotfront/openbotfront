@@ -1,20 +1,21 @@
 {
-  "name": "botfront",
+  "name": "openbotfront",
   "version": "1.0.5",
-  "repository": "https://github.com/botfront/botfront",
-  "description": "Botfront is an open source chatbot platform based on Rasa.",
+  "repository": "https://github.com/openbotfront/openbotfront",
+  "description": "Openbotfront is an open source chatbot platform based on Rasa and Botfront.",
   "main": "index.js",
   "scripts": {
     "test": "cross-env NODE_ENV=test ./node_modules/.bin/mocha --ui bdd --reporter spec --colors --exit --require @babel/register",
-    "postinstall": "echo Botfront succesfully installed. Run 'botfront' to get started."
+    "postinstall": "echo Openbotfront succesfully installed. Run 'openbotfront' to get started."
   },
   "bin": {
-    "botfront": "bin/botfront"
+    "openbotfront": "bin/openbotfront"
   },
   "publishConfig": {
     "access": "public"
   },
   "keywords": [
+    "Openbotfront",
     "Botfront",
     "Rasa",
     "Chatbot",
@@ -22,7 +23,7 @@
     "Botkit"
   ],
   "preferGlobal": true,
-  "author": "Botfront",
+  "author": "Openbotfront",
   "license": "Apache-2.0",
   "dependencies": {
     "arg": "^4.1.1",

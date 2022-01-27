@@ -1,15 +1,15 @@
 ########################################################################
 # This file is used as a template for the docker-compose.yaml file     #
-# you will find at the root of your project when running `botfront up` #
+# you will find at the root of your project when running `openbotfront up` #
 ########################################################################
 
 version: "3.0"
 services:
-  botfront:
-    image: botfront/botfront
-    container_name: botfront-app
+  openbotfront:
+    image: openbotfront/openbotfront
+    container_name: openbotfront-app
     restart: always
-    networks: ['botfront-network']
+    networks: ['openbotfront-network']
     volumes:
       - ./models/:/app/models
     ports:
@@ -26,8 +26,8 @@ services:
       context: ./rasa
       args:
         RASA_IMAGE: ${IMAGES_CURRENT_RASA}
-    container_name: botfront-rasa
-    networks: ["botfront-network"]
+    container_name: openbotfront-rasa
+    networks: ["openbotfront-network"]
     restart: always
     ports:
       - 5005:5005
@@ -41,8 +41,8 @@ services:
       context: ./actions
       args:
         RASA_SDK_IMAGE: ${IMAGES_CURRENT_ACTIONS}
-    container_name: botfront-actions
-    networks: ["botfront-network"]
+    container_name: openbotfront-actions
+    networks: ["openbotfront-network"]
     restart: always
     ports:
       - "5055:5055"
@@ -57,20 +57,20 @@ services:
       - .env
 
   duckling:
-    image: botfront/duckling
-    container_name: botfront-duckling
-    networks: ["botfront-network"]
+    image: openbotfront/duckling
+    container_name: openbotfront-duckling
+    networks: ["openbotfront-network"]
     restart: always
     ports:
       - "8000:8000"
 
   mongo:
     image: mongo
-    container_name: botfront-mongo
+    container_name: openbotfront-mongo
     restart: always
-    networks: ["botfront-network"]
+    networks: ["openbotfront-network"]
     volumes:
-    - ./botfront-db:/data/db
+    - ./openbotfront-db:/data/db
     ports:
     - "27017:27017"
     env_file:
@@ -78,6 +78,6 @@ services:
 
 
 networks:
-  botfront-network: {}
+  openbotfront-network: {}
 volumes:
-  botfront-db:
+  openbotfront-db:
