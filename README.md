@@ -1,3 +1,7 @@
+<p align="center">
+<a href="https://botfront.io">
+    <img src="botfront_animation.gif" width="100%">
+</a>
 
 <p align="center">
 <a href="(https://github.com/botfront/botfront/actions">
@@ -13,27 +17,26 @@
     <img alt="Github discussions link" src="https://img.shields.io/badge/Community%20support-Start%20a%20discussion-green">
 </a>
 </p>
-<br />
 
-<H1 align="center">
-    This project is not maintained anymore and will not receive further updates.
-</H1>
+
 
 <p align="center">
   <a href="#highlights">Highlights</a> •
   <a href="#features">Features</a> •
   <a href="#quick-start">Quick start</a> •
+  <a href="#documentation">Documentation</a> •
   <a href="#development">Development</a>
 </p>
 <p align="center">
   <a href="./CHANGELOG.md">Release Notes</a> •
+  <a href="https://github.com/openbotfront/openbotfront/discussions">Get community support</a> •
+  <a href="https://openbotfront.io">Botfront.io</a>
 </p>
 
 <br/>
 <h2 align="center">What is it</h2>
 
-Botfront is an open-source enterprise-grade conversational platform built with Rasa. 
-It provides super intuitive interfaces and collaborative features to domain experts, conversational designers and engineers. 
+Openbotfront is an open-source enterprise-grade conversational platform built with Rasa. It is a fork of Botfront, whose development has unfortunately been discontinued.It provides super intuitive interfaces and collaborative features to domain experts, conversational designers and engineers. 
 
 <br/>
 <h2 name="highlights" align="center">Highlights</h2>
